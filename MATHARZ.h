@@ -267,7 +267,7 @@ namespace harz {
 		template<typename number_t, typename other_number_t>
 		MATHARZ_INLINE number_t pow(number_t value, other_number_t exp)
 		{
-			return MTHRZ_POW(value,exp);
+			return MTHRZ_POW(value, exp);
 		}
 		template<typename number_t = float>
 		MATHARZ_INLINE number_t sqrt(number_t value)
@@ -380,13 +380,13 @@ namespace harz {
 		template<typename number_t = float, typename other_number_t = float>
 		MATHARZ_INLINE bool more_or_equal(number_t a, other_number_t b, float safe_guard = MTHRZ_FLOAT_EPSILON)
 		{
-			return more(a,b) || equal(a, b);
+			return more(a, b) || equal(a, b);
 		};
 
 		template<typename number_t = float, typename other_number_t = float>
 		MATHARZ_INLINE bool less_or_equal(number_t a, other_number_t b, float safe_guard = MTHRZ_FLOAT_EPSILON)
 		{
-			return less(a,b) || equal(a, b);
+			return less(a, b) || equal(a, b);
 		};
 
 		// Forward declaration of types
@@ -512,10 +512,10 @@ namespace harz {
 		struct template_vec2 {
 		public:
 			union {
-				union {number_t data[2]; };
-				union {number_t rowData[1][2]; };
-				union {number_t columnData[2][1]; };
-				union {number_t lineArrayData[2]; };
+				union { number_t data[2]; };
+				union { number_t rowData[1][2]; };
+				union { number_t columnData[2][1]; };
+				union { number_t lineArrayData[2]; };
 				union { struct { number_t a, b; }; };
 				union { struct { number_t x, y; }; };
 				union { struct { number_t r, g; }; };
@@ -677,7 +677,7 @@ namespace harz {
 			MATHARZ_INLINE template_vec2<number_t>& operator/=(const template_vec2<number_t> b)
 			{
 				MATHARZ_ASSERT((b.x != 0 && b.y != 0), "vec2 Divide by ZERO!")
-				x /= b.x;
+					x /= b.x;
 				y /= b.y;
 				return *this;
 			};
@@ -698,7 +698,7 @@ namespace harz {
 			MATHARZ_INLINE template_vec2<number_t>& operator/=(const number_t b)
 			{
 				MATHARZ_ASSERT((b != 0), "vec2 Divide by ZERO!")
-				x /= b;
+					x /= b;
 				y /= b;
 				return *this;
 			};
@@ -706,11 +706,11 @@ namespace harz {
 			// Bool Compare overloads
 
 			MATHARZ_INLINE bool operator ==(const template_vec2<number_t> vec2) const {
-				return { equal(data[0] , vec2.data[0] )&& equal(data[1] , vec2.data[1] )};
+				return { equal(data[0] , vec2.data[0]) && equal(data[1] , vec2.data[1]) };
 			};
 
 			// Access operators
-			MATHARZ_INLINE number_t& operator[](size_t i) { MATHARZ_ASSERT((i < 2),"Out of size index"); return data[i]; };
+			MATHARZ_INLINE number_t& operator[](size_t i) { MATHARZ_ASSERT((i < 2), "Out of size index"); return data[i]; };
 			MATHARZ_INLINE const number_t& operator[](size_t i) const { MATHARZ_ASSERT((i < 2), "Out of size index"); return data[i]; };
 		}; // template vec2
 
@@ -732,7 +732,7 @@ namespace harz {
 				struct { number_t IgnoredR; template_vec2<number_t> gb; };
 			};
 
-			template_vec3<number_t>(){ std::fill_n(&lineArrayData[0], 3, 0); };
+			template_vec3<number_t>() { std::fill_n(&lineArrayData[0], 3, 0); };
 
 			template_vec3<number_t>(number_t Scalar) { std::fill_n(&lineArrayData[0], 3, Scalar); };
 
@@ -745,7 +745,7 @@ namespace harz {
 			template_vec3<number_t>(std::initializer_list<number_t> initList)
 			{
 				MATHARZ_ASSERT(initList.size() <= 3, "Init list is not have a proper size(>3 numbers)!");
-			
+
 				if (initList.size() == 1)
 				{
 					std::fill_n(&lineArrayData[0], 3, *initList.begin());
@@ -914,7 +914,7 @@ namespace harz {
 			MATHARZ_INLINE template_vec3<number_t>& operator/=(const template_vec3<number_t> b)
 			{
 				MATHARZ_ASSERT((b.x != 0 && b.y != 0 && b.z != 0), "VEC3 Divide by ZERO!")
-				x /= b.x;
+					x /= b.x;
 				y /= b.y;
 				z /= b.z;
 				return *this;
@@ -944,7 +944,7 @@ namespace harz {
 			MATHARZ_INLINE template_vec3<number_t>& operator/=(const number_t b)
 			{
 				MATHARZ_ASSERT((b != 0), "VEC3 Divide by ZERO!")
-				x /= b;
+					x /= b;
 				y /= b;
 				z /= b;
 				return *this;
@@ -1030,7 +1030,7 @@ namespace harz {
 			{
 				number_t lenght = Lenght();
 				MATHARZ_ASSERT((lenght != 0), "VEC3 Divide by ZERO!")
-				x /= lenght;
+					x /= lenght;
 				y /= lenght;
 				z /= lenght;
 				return *this;
@@ -1114,15 +1114,15 @@ namespace harz {
 			// bool operations
 
 			MATHARZ_INLINE bool operator !=(number_t number) const {
-				return !( equal(data[0],number) );
+				return !(equal(data[0], number));
 			};
 
 			MATHARZ_INLINE bool operator !=(template_vec2<number_t> vec2) const {
-				return !( equal(data[0],vec2.data[0]) && equal(data[1] ,vec2.data[1]) );
+				return !(equal(data[0], vec2.data[0]) && equal(data[1], vec2.data[1]));
 			};
 
 			MATHARZ_INLINE bool operator !=(template_vec3<number_t> vec3) const {
-				return !( equal(data[0],vec3.data[0]) && equal(data[1] ,vec3.data[1]) && equal(data[2] ,vec3.data[2]) );
+				return !(equal(data[0], vec3.data[0]) && equal(data[1], vec3.data[1]) && equal(data[2], vec3.data[2]));
 			};
 
 			MATHARZ_INLINE bool operator ==(number_t number) const {
@@ -1142,75 +1142,75 @@ namespace harz {
 			};
 
 			MATHARZ_INLINE bool operator >=(template_vec2<number_t> vec2) const {
-				return { more_or_equal(data[0] , vec2.data[0] )&& (more_or_equal(data[1] ,vec2.data[1])) };
+				return { more_or_equal(data[0] , vec2.data[0]) && (more_or_equal(data[1] ,vec2.data[1])) };
 			};
 
 			MATHARZ_INLINE bool operator >=(template_vec3<number_t> vec3) const {
-				return { more_or_equal(data[0] , vec3.data[0]) && (more_or_equal(data[1] ,vec3.data[1])) && more_or_equal(data[2] , vec3.data[2] )};
+				return { more_or_equal(data[0] , vec3.data[0]) && (more_or_equal(data[1] ,vec3.data[1])) && more_or_equal(data[2] , vec3.data[2]) };
 			};
 
 			MATHARZ_INLINE bool operator <=(number_t number) const {
-				return {less_or_equal( data[0], number )};
+				return { less_or_equal(data[0], number) };
 			};
 
 			MATHARZ_INLINE bool operator <=(template_vec2<number_t> vec2) const {
-				return { less_or_equal(data[0] , vec2.data[0] )&& less_or_equal(data[1] , vec2.data[1] )};
+				return { less_or_equal(data[0] , vec2.data[0]) && less_or_equal(data[1] , vec2.data[1]) };
 			}
 
 			MATHARZ_INLINE bool operator <=(template_vec3<number_t> vec3) const {
-				return { less_or_equal(data[0], vec3.data[0] )&& less_or_equal(data[1] ,vec3.data[1] )&& less_or_equal(data[2] , vec3.data[2] )};
+				return { less_or_equal(data[0], vec3.data[0]) && less_or_equal(data[1] ,vec3.data[1]) && less_or_equal(data[2] , vec3.data[2]) };
 			};
 
 			MATHARZ_INLINE bool operator >(number_t number) const {
-				return { more(data[0] , number)};
+				return { more(data[0] , number) };
 			};
 
 			MATHARZ_INLINE bool operator >(template_vec2<number_t> vec2) const {
-				return { more(data[0], vec2.data[0]) && more(data[1] , vec2.data[1] )};
+				return { more(data[0], vec2.data[0]) && more(data[1] , vec2.data[1]) };
 			};
 
 			MATHARZ_INLINE bool operator >(template_vec3<number_t> vec3) const {
-				return { more(data[0] , vec3.data[0] )&& more(data[1] ,vec3.data[1] )&& more(data[2] , vec3.data[2] )};
+				return { more(data[0] , vec3.data[0]) && more(data[1] ,vec3.data[1]) && more(data[2] , vec3.data[2]) };
 			};
 
 			MATHARZ_INLINE bool operator <(number_t number) const {
-				return { less(data[0] , number )};
+				return { less(data[0] , number) };
 			};
 
 			MATHARZ_INLINE bool operator <(template_vec2<number_t> vec2) const {
-				return { less(data[0] , vec2.data[0] )&& less(data[1] ,vec2.data[1] )};
+				return { less(data[0] , vec2.data[0]) && less(data[1] ,vec2.data[1]) };
 			};
 
 			MATHARZ_INLINE bool operator <(template_vec3<number_t> vec3) const {
-				return { less(data[0] ,vec3.data[0] )&& less(data[1] ,vec3.data[1] )&& less(data[2] ,vec3.data[2] )};
+				return { less(data[0] ,vec3.data[0]) && less(data[1] ,vec3.data[1]) && less(data[2] ,vec3.data[2]) };
 			};
 
 			MATHARZ_INLINE bool operator !=(template_vec4<number_t> vec4) const {
-				return !(vec4.xyz== *this);
+				return !(vec4.xyz == *this);
 			};
 
 			MATHARZ_INLINE bool operator ==(template_vec4<number_t> vec4) const {
-				return vec4.xyz== *this;
+				return vec4.xyz == *this;
 			};
 
 			MATHARZ_INLINE bool operator >=(template_vec4<number_t> vec4) const {
-				return vec4.xyz>= *this;
+				return vec4.xyz >= *this;
 			};
 
 			MATHARZ_INLINE bool operator <=(template_vec4<number_t> vec4) const {
-				return vec4.xyz<= *this;
+				return vec4.xyz <= *this;
 			};
 
 			MATHARZ_INLINE bool operator >(template_vec4<number_t> vec4) const {
-				return vec4.xyz>*this;
+				return vec4.xyz > *this;
 			};
 
 			MATHARZ_INLINE bool operator <(template_vec4<number_t> vec4) const {
-				return vec4.xyz< *this;
+				return vec4.xyz < *this;
 			};
 
 			// Access operators
-			MATHARZ_INLINE number_t& operator[](size_t i) { MATHARZ_ASSERT((i < 3),"Out of size index"); return data[i]; };
+			MATHARZ_INLINE number_t& operator[](size_t i) { MATHARZ_ASSERT((i < 3), "Out of size index"); return data[i]; };
 			MATHARZ_INLINE const number_t& operator[](size_t i) const { MATHARZ_ASSERT((i < 3), "Out of size index"); return data[i]; };
 		}; // template_vec3
 
@@ -1246,7 +1246,7 @@ namespace harz {
 			template_vec4<number_t>(template_quaternion< other_number_t> quaternion)
 			{
 				auto castedQuat = static_cast<template_quaternion<number_t>>(quaternion);
-				std::copy_n(&castedQuat.lineArrayData[0],4,&data[0]);
+				std::copy_n(&castedQuat.lineArrayData[0], 4, &data[0]);
 			};
 
 			template_vec4<number_t>(std::initializer_list<number_t> initList)
@@ -1289,7 +1289,7 @@ namespace harz {
 			// @return Vector with results of multiplication of each element on scalar
 			MATHARZ_INLINE template_vec4<number_t> ScalarMultiply(const number_t b) const
 			{
-				return template_vec4<number_t>{ x * b, y * b, z * b,w * b };
+				return template_vec4<number_t>{ x * b, y * b, z * b, w * b };
 			}
 
 			// Scalar multiplication
@@ -1303,7 +1303,7 @@ namespace harz {
 			// @return Vector with results of multiplication of each corresponding elements of vectors
 			MATHARZ_INLINE template_vec4<number_t> Multiply(const template_vec4<number_t> b) const
 			{
-				return template_vec4<number_t> { x * b.x, y * b.y, z * b.z,w * b.w };
+				return template_vec4<number_t> { x * b.x, y * b.y, z * b.z, w * b.w };
 			}
 
 			// Vector multiplication
@@ -1351,8 +1351,8 @@ namespace harz {
 
 			// bool operators
 			MATHARZ_INLINE bool operator !=(template_vec4<number_t> vec4) const {
-				return !(equal(data[0], vec4.data[0]) && equal(data[1], vec4.data[1]) 
-					&& equal(data[2], vec4.data[2]) && equal(data[3],vec4.data[3]));
+				return !(equal(data[0], vec4.data[0]) && equal(data[1], vec4.data[1])
+					&& equal(data[2], vec4.data[2]) && equal(data[3], vec4.data[3]));
 			};
 
 			MATHARZ_INLINE bool operator ==(template_vec4<number_t> vec4) const {
@@ -1361,13 +1361,13 @@ namespace harz {
 			};
 
 			MATHARZ_INLINE bool operator >=(template_vec4<number_t> vec4) const {
-				return  more_or_equal(data[0] , vec4.data[0]) && (more_or_equal(data[1] ,vec4.data[1])) 
-					&& more_or_equal(data[2] , vec4.data[2]) && more_or_equal(data[3] , vec4.data[3]);
+				return  more_or_equal(data[0], vec4.data[0]) && (more_or_equal(data[1], vec4.data[1]))
+					&& more_or_equal(data[2], vec4.data[2]) && more_or_equal(data[3], vec4.data[3]);
 			};
 
 			MATHARZ_INLINE bool operator <=(template_vec4<number_t> vec4) const {
-				return  less_or_equal(data[0] , vec4.data[0]) && (less_or_equal(data[1] ,vec4.data[1]))
-					&& less_or_equal(data[2] , vec4.data[2]) && less_or_equal(data[3] , vec4.data[3]);
+				return  less_or_equal(data[0], vec4.data[0]) && (less_or_equal(data[1], vec4.data[1]))
+					&& less_or_equal(data[2], vec4.data[2]) && less_or_equal(data[3], vec4.data[3]);
 			};
 
 			MATHARZ_INLINE bool operator >(template_vec4<number_t> vec4) const {
@@ -1376,21 +1376,21 @@ namespace harz {
 			};
 
 			MATHARZ_INLINE bool operator <(template_vec4<number_t> vec4) const {
-				return  less(data[0] , vec4.data[0]) && (less(data[1] ,vec4.data[1]))
-					&& less(data[2] , vec4.data[2]) && less(data[3] , vec4.data[3]);
+				return  less(data[0], vec4.data[0]) && (less(data[1], vec4.data[1]))
+					&& less(data[2], vec4.data[2]) && less(data[3], vec4.data[3]);
 			};
 
 			// bool operators
 			MATHARZ_INLINE bool operator !=(template_vec3<number_t> vec3) const {
-				return !(xyz== vec3);
+				return !(xyz == vec3);
 			};
 
 			MATHARZ_INLINE bool operator ==(template_vec3<number_t> vec3) const {
-				return xyz ==vec3;
+				return xyz == vec3;
 			};
 
 			MATHARZ_INLINE bool operator >=(template_vec3<number_t> vec3) const {
-				return xyz>= vec3;
+				return xyz >= vec3;
 			};
 
 			MATHARZ_INLINE bool operator <=(template_vec3<number_t> vec3) const {
@@ -1398,15 +1398,16 @@ namespace harz {
 			};
 
 			MATHARZ_INLINE bool operator >(template_vec3<number_t> vec3) const {
-				return xyz> vec3;
+				return xyz > vec3;
 			};
 
 			MATHARZ_INLINE bool operator <(template_vec3<number_t> vec3) const {
-				return xyz< vec3;
+				return xyz < vec3;
 			};
 
 			// Access operators
-			MATHARZ_INLINE number_t& operator[](size_t i) { MATHARZ_ASSERT((i < 4), "Out of size index"); return data[i];
+			MATHARZ_INLINE number_t& operator[](size_t i) {
+				MATHARZ_ASSERT((i < 4), "Out of size index"); return data[i];
 			};
 			MATHARZ_INLINE const number_t& operator[](size_t i) const { MATHARZ_ASSERT((i < 4), "Out of size index"); return data[i]; };
 		}; // template_vec4
@@ -1415,7 +1416,7 @@ namespace harz {
 		template<typename number_t>
 		struct template_quaternion {
 		public:
-			union 
+			union
 			{
 				alignas(sizeof(number_t) * 4) number_t data[4];
 				alignas(sizeof(number_t) * 4) number_t rowData[1][4];
@@ -1480,10 +1481,10 @@ namespace harz {
 			};
 
 			// Math functions
-			
+
 			// Multiply quaternions
 			// @return Result quaternion
-			MATHARZ_INLINE template_quaternion<number_t>&& Multiply(template_quaternion<number_t>  q_1) const {
+			MATHARZ_INLINE template_quaternion<number_t> Multiply(template_quaternion<number_t>  q_1) const {
 				template_quaternion<number_t> out_quaternion{};
 
 				out_quaternion.x = this->x * q_1.w +
@@ -1506,7 +1507,7 @@ namespace harz {
 					this->z * q_1.z +
 					this->w * q_1.w;
 
-				return std::move(out_quaternion);
+				return out_quaternion;
 			}
 
 			// Implementation source from Cry engine code
@@ -1565,9 +1566,9 @@ namespace harz {
 				number_t normal = Normal();
 				return template_quaternion<number_t> {
 					this->x / normal,
-					this->y / normal,
-					this->z / normal,
-					this->w / normal
+						this->y / normal,
+						this->z / normal,
+						this->w / normal
 				};
 			};
 
@@ -1576,9 +1577,9 @@ namespace harz {
 			MATHARZ_INLINE template_quaternion<number_t> GetConjugate() const {
 				return template_quaternion< number_t>{
 					-this->x,
-					-this->y,
-					-this->z,
-					this->w
+						-this->y,
+						-this->z,
+						this->w
 				};
 			};
 
@@ -1649,7 +1650,7 @@ namespace harz {
 				return out_matrix;
 			}
 
-			// Construct this quaternion from the given axis and angle.
+			// Make this quaternion from the given axis and angle.
 			template<typename angle_t = float>
 			MATHARZ_INLINE template_quaternion<number_t>& MakeFromAxisAngle(template_vec3<number_t>  axis, angle_t angle) {
 				template_vec3<number_t>   vn = axis.GetNormalized();
@@ -1658,11 +1659,11 @@ namespace harz {
 				float sinAngle = sin(angle);
 
 				template_quaternion<number_t> quat = template_quaternion<number_t>{ cos(angle), vn.x * sinAngle, vn.y * sinAngle, vn.z * sinAngle };
-				std::swap(*this,quat);
+				std::swap(*this, quat);
 				return *this;
 			};
 
-			// Construct this quaternion from euler rotation
+			// Make this quaternion from euler rotation
 			template<typename angle_t = float>
 			MATHARZ_INLINE template_quaternion<number_t>& MakeFromEulerRotation(angle_t X, angle_t Y, angle_t Z) {
 				X = radians(x);
@@ -1687,7 +1688,7 @@ namespace harz {
 				return *this;
 			}
 
-			// Construct this quaternion from euler rotation
+			// Make this quaternion from euler rotation
 			MATHARZ_INLINE template_quaternion<number_t>& MakeFromEulerRotation(template_vec3<number_t> vec) {
 				return MakeFromEulerRotation(vec.x, vec.y, vec.z);
 			}
@@ -1747,12 +1748,12 @@ namespace harz {
 				resultMatrix.lineArrayData[1] = 2.0f * x * y + 2.0f * z * w;
 				resultMatrix.lineArrayData[2] = 2.0f * x * z - 2.0f * y * w;
 				resultMatrix.lineArrayData[3] = 0.0f;
-							
+
 				resultMatrix.lineArrayData[4] = 2.0f * x * y - 2.0f * z * w;
 				resultMatrix.lineArrayData[5] = 1.0f - 2.0f * x * x - 2.0f * z * z;
 				resultMatrix.lineArrayData[6] = 2.0f * z * y + 2.0f * x * w;
 				resultMatrix.lineArrayData[7] = 0.0f;
-							
+
 				resultMatrix.lineArrayData[8] = 2.0f * x * z + 2.0f * y * w;
 				resultMatrix.lineArrayData[9] = 2.0f * z * y - 2.0f * x * w;
 				resultMatrix.lineArrayData[10] = 1.0f - 2.0f * x * x - 2.0f * y * y;
@@ -1785,7 +1786,7 @@ namespace harz {
 			MATHARZ_INLINE template_quaternion<number_t> friend operator * (const template_quaternion<number_t> q, const template_quaternion<number_t> p) {
 				return q.Multiply(p);
 			}
-			
+
 			MATHARZ_INLINE void friend operator *= (const template_quaternion<number_t>& q, const template_quaternion<number_t> p) {
 				q = q.Multiply(p);
 			}
@@ -1813,7 +1814,7 @@ namespace harz {
 			// bool operators
 			MATHARZ_INLINE bool operator==(template_quaternion< number_t> quat)
 			{
-				return equal(x, quat.x) && equal(y,quat.y) && equal(z , quat.z) && equal(w , quat.w);
+				return equal(x, quat.x) && equal(y, quat.y) && equal(z, quat.z) && equal(w, quat.w);
 			};
 
 			MATHARZ_INLINE bool operator==(template_vec4< number_t> vec4)
@@ -1822,9 +1823,9 @@ namespace harz {
 			};
 
 			// Access operators
-			MATHARZ_INLINE number_t& operator[](size_t i) { MATHARZ_ASSERT((i < 4),"Out of size index"); return data[i]; };
+			MATHARZ_INLINE number_t& operator[](size_t i) { MATHARZ_ASSERT((i < 4), "Out of size index"); return data[i]; };
 
-			MATHARZ_INLINE const number_t& operator[](size_t i) const { MATHARZ_ASSERT((i < 4),"Out of size index"); return data[i]; };
+			MATHARZ_INLINE const number_t& operator[](size_t i) const { MATHARZ_ASSERT((i < 4), "Out of size index"); return data[i]; };
 		};
 
 		// Matrix with 2x2 elemets
@@ -1926,23 +1927,23 @@ namespace harz {
 
 			// Multiply this matrix by another matrix b
 			// @return Result matrix
-			MATHARZ_INLINE template_matrix2x2<number_t>&& Multiply(template_matrix2x2<number_t> b) const
+			MATHARZ_INLINE template_matrix2x2<number_t> Multiply(template_matrix2x2<number_t> b) const
 			{
-				template_matrix2x2<number_t> result;
+				template_matrix2x2<number_t> result{};
 
 				result[0][0] = data[0][0] * b.data[0][0] + data[0][1] * b.data[1][0];
 				result[0][1] = data[0][0] * b.data[0][1] + data[0][1] * b.data[1][1];
 				result[1][0] = data[1][0] * b.data[0][0] + data[1][1] * b.data[1][0];
 				result[1][1] = data[1][0] * b.data[0][1] + data[1][1] * b.data[1][1];
-				return std::move(result);
+				return result;
 			}
 
 			// Divide this matrix by scalar
 			// @return Result matrix
-			MATHARZ_INLINE template_matrix2x2<number_t>&& ScalarDivide(number_t b) const
+			MATHARZ_INLINE template_matrix2x2<number_t> ScalarDivide(number_t b) const
 			{
 				MATHARZ_ASSERT(b != number_t(0), "Divide on 0!");
-				template_matrix2x2<number_t> result;
+				template_matrix2x2<number_t> result{};
 				if (b != number_t(0))
 				{
 					result[0][0] /= b;
@@ -1950,7 +1951,7 @@ namespace harz {
 					result[1][0] /= b;
 					result[1][1] /= b;
 				};
-				return std::move(result);
+				return result;
 			}
 
 			// Divide this matrix by scalar
@@ -1977,12 +1978,12 @@ namespace harz {
 
 			// Calculate inverse of this matrix
 			// @return Inverse of this matrix, be sure to call this on invertible matrix, else use GetInverseSafe
-			MATHARZ_INLINE template_matrix2x2<number_t>&& GetInverse() const
+			MATHARZ_INLINE template_matrix2x2<number_t> GetInverse() const
 			{
 				template_matrix2x2<number_t> result
-				(d, -b,
-					-c, a);
-				return std::move(result.ScalarDivideSelf(result.Determinant()));
+				{ d, -b,
+				 -c, a };
+				return result.ScalarDivideSelf(result.Determinant());
 			}
 
 			// Calculate inverse of this matrix
@@ -2035,7 +2036,7 @@ namespace harz {
 				return ScalarDivideSelf(b);
 			}
 
-			MATHARZ_INLINE template_matrix2x2<number_t>&& operator +(const template_matrix2x2<number_t> b)
+			MATHARZ_INLINE template_matrix2x2<number_t> operator +(const template_matrix2x2<number_t> b)
 			{
 				template_matrix2x2<number_t> res;
 				for (int i = 0; i < 2; i++)
@@ -2045,14 +2046,14 @@ namespace harz {
 						res.data[i][j] = data[i][j] + b.data[i][j];
 					}
 				}
-				return std::move(res);
+				return res;
 			}
 
 			// bool operators
 			MATHARZ_INLINE bool operator==(template_matrix2x2< number_t>& mat2)
 			{
 				return equal(lineArrayData[0], mat2.lineArrayData[0]) && equal(lineArrayData[1], mat2.lineArrayData[1])
-					&& equal(lineArrayData[2], mat2.lineArrayData[2]) && equal(lineArrayData[3],mat2.lineArrayData[3]);
+					&& equal(lineArrayData[2], mat2.lineArrayData[2]) && equal(lineArrayData[3], mat2.lineArrayData[3]);
 				//return this->vectors[0] == mat2.vectors[0] && this->vectors[1] == mat2.vectors[1];
 			};
 
@@ -2102,9 +2103,9 @@ namespace harz {
 
 			template_matrix3x3<number_t>() { std::fill_n(&lineArrayData[0], 9, 0); };
 
-			template_matrix3x3<number_t>(number_t aE, number_t bE, number_t cE ,
-				number_t dE , number_t eE , number_t fE ,
-				number_t gE , number_t hE , number_t iE )
+			template_matrix3x3<number_t>(number_t aE, number_t bE, number_t cE,
+				number_t dE, number_t eE, number_t fE,
+				number_t gE, number_t hE, number_t iE)
 			{
 				a = aE; b = bE; c = cE; d = dE; e = eE; f = fE; g = gE; h = hE; i = iE;;
 			};
@@ -2168,7 +2169,7 @@ namespace harz {
 			};
 
 			// Multiply this matrix by another matrix b
-			MATHARZ_INLINE template_matrix3x3<number_t>&& Multiply(template_matrix3x3<number_t> b)
+			MATHARZ_INLINE template_matrix3x3<number_t> Multiply(template_matrix3x3<number_t> b)
 			{
 				template_matrix3x3<number_t> result{};
 				for (int i = 0; i < 3; ++i)
@@ -2178,7 +2179,7 @@ namespace harz {
 							result.data[i][j] += this->data[i][k] * b.data[k][j];
 						};
 
-				return std::move(result);
+				return result;
 			}
 
 			// Calculate determinant of this matrix
@@ -2198,18 +2199,18 @@ namespace harz {
 			{
 				return vectors[0].xy == mat2.vectors[0] && vectors[1].xy == mat2.vectors[1];
 			};
-			
+
 			// bool operators
 			MATHARZ_INLINE bool operator==(template_matrix3x3< number_t> mat3)
 			{
-				return vectors[0] == mat3.vectors[0] && vectors[1] == mat3.vectors[1] 
+				return vectors[0] == mat3.vectors[0] && vectors[1] == mat3.vectors[1]
 					&& vectors[2] == mat3.vectors[2];
 			};
 
 			// bool operators
 			MATHARZ_INLINE bool operator==(template_matrix4x4< number_t> mat4)
 			{
-				return vectors[0] == mat4.vectors[0].xyz && vectors[1] == mat4.vectors[1].xyz 
+				return vectors[0] == mat4.vectors[0].xyz && vectors[1] == mat4.vectors[1].xyz
 					&& vectors[2] == mat4.vectors[2].xyz;
 			};
 
@@ -2410,7 +2411,7 @@ namespace harz {
 				auto ResultVec3 = vectors[0] * f31 + vectors[1] * f32 + vectors[2] * f33;
 				auto ResultVec4 = vectors[3];
 
-				return template_matrix4x4<number_t>{ResultVec1,ResultVec2,ResultVec3,ResultVec4};
+				return template_matrix4x4<number_t>{ResultVec1, ResultVec2, ResultVec3, ResultVec4};
 			};
 
 			MATHARZ_INLINE template_vec4<number_t> Multiply(const template_vec4<number_t> b) const
@@ -2452,14 +2453,14 @@ namespace harz {
 			// bool operators
 			MATHARZ_INLINE bool operator==(template_matrix3x3< number_t> mat3)
 			{
-				return vectors[0].xyz == mat3.vectors[0] && vectors[1].xyz == mat3.vectors[1] 
+				return vectors[0].xyz == mat3.vectors[0] && vectors[1].xyz == mat3.vectors[1]
 					&& vectors[2].xyz == mat3.vectors[2];
 			};
 
 			// bool operators
 			MATHARZ_INLINE bool operator==(template_matrix4x4< number_t> mat4)
 			{
-				return vectors[0] == mat4.vectors[0] && vectors[1] == mat4.vectors[1] 
+				return vectors[0] == mat4.vectors[0] && vectors[1] == mat4.vectors[1]
 					&& vectors[2] == mat4.vectors[2] && vectors[3] == mat4.vectors[3];
 			};
 
@@ -2640,18 +2641,18 @@ namespace harz {
 			return vec.GetNormalized();
 		};
 
-		template<typename number_t, typename angle_t = float> 
-		MATHARZ_INLINE template_quaternion<number_t> 
-		MakeQuaternionFromAxisAngle ( template_vec3<number_t>  axis, angle_t angle) 
+		template<typename number_t, typename angle_t = float>
+		MATHARZ_INLINE template_quaternion<number_t>
+			MakeQuaternionFromAxisAngle(template_vec3<number_t>  axis, angle_t angle)
 		{
 			template_quaternion<number_t> result{};
 			result.MakeFromAxisAngle(axis, angle);
 			return result;
 		};
 
-		template<typename number_t> 
+		template<typename number_t>
 		MATHARZ_INLINE template_quaternion<number_t>
-		MakeQuaternionFromEulerRotation(template_vec3<number_t> vec)
+			MakeQuaternionFromEulerRotation(template_vec3<number_t> vec)
 		{
 			template_quaternion<number_t> result{};
 			result.MakeFromEulerRotation(vec);
@@ -2660,16 +2661,16 @@ namespace harz {
 
 		template<typename number_t, typename float_t = float>
 		MATHARZ_INLINE template_quaternion<number_t>
-		MakeQuaternionFromEulerRotation(float_t x, float_t y, float_t z)
+			MakeQuaternionFromEulerRotation(float_t x, float_t y, float_t z)
 		{
 			template_quaternion<number_t> result{};
-			result.MakeFromEulerRotation(x,y,z);
+			result.MakeFromEulerRotation(x, y, z);
 			return result;
 		};
 
 		template<typename number_t> MATHARZ_INLINE template_matrix4x4<number_t> Rotate(template_matrix4x4<number_t> m, number_t angle, template_vec3<number_t> vec) {
 			return m.Rotate(angle, vec);
-		};		
+		};
 
 		// Static constants
 		MATHARZ_STATIC_GLOBAL mat2x2 IdentityMatrix2x2{
