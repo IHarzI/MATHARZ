@@ -70,8 +70,7 @@ MATHARZ_ASSERT((condition), "CONDITION FAILED!");
 #define MTHRZ_POW(x,p) MATHARZ_USE_CUSTOM_POW(x,p)
 #endif // !MATHARZ_USE_CUSTOM_POW
 
-// Smallest positive number, when 1.0 + FLOAT_EPSILON != 0 
-
+// Small enough value to check float with guard
 #define MTHRZ_FLOAT_EPSILON 0.00001f
 
 #define matharz harz::math
