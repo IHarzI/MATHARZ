@@ -515,7 +515,6 @@ namespace harz {
 				union { number_t rowData[1][2]; };
 				union { number_t columnData[2][1]; };
 				union { number_t lineArrayData[2]; };
-				union { struct { number_t a, b; }; };
 				union { struct { number_t x, y; }; };
 				union { struct { number_t r, g; }; };
 				union { struct { number_t u, v; }; };
@@ -722,13 +721,8 @@ namespace harz {
 				number_t rowData[1][3];
 				number_t columnData[3][1];
 				number_t lineArrayData[3];
-				struct { number_t a, b, c; };
 				struct { number_t x, y, z; };
 				struct { number_t r, g, b; };
-				struct { template_vec2<number_t> xy; number_t IgnoredZ; };
-				struct { number_t IgnoredX; template_vec2<number_t> yz; };
-				struct { template_vec2<number_t> rg; number_t IgnoredB; };
-				struct { number_t IgnoredR; template_vec2<number_t> gb; };
 			};
 
 			template_vec3<number_t>() { std::fill_n(&lineArrayData[0], 3, 0); };
@@ -756,10 +750,10 @@ namespace harz {
 			}
 
 			explicit template_vec3<number_t>(template_vec2<number_t> vec2, number_t z)
-				: xy(vec2), z(z) {};
+				: x(vec2.x), y(vec2.y), z(z) {};
 
 			explicit template_vec3<number_t>(number_t x, template_vec2<number_t> vec2)
-				: x(x), yz(vec2) {};
+				: x(x), y(vec2.x), z(vec2.y) {};
 
 			// Cast to another vec_3 template, be careful about with data you cast, possible lose of data
 			template <typename different_number_t>
@@ -1035,6 +1029,13 @@ namespace harz {
 				return *this;
 			}
 
+			// Calcualte distance to vector b
+			MATHARZ_INLINE number_t DistanceTo(const template_vec3<number_t> b) const
+			{
+				template_vec3<number_t> DirectionVec = b - *this;
+				return DirectionVec.Lenght(); 
+			}
+
 			// Check if this vector is perpendicular to vector b
 			MATHARZ_INLINE bool IsPerpendicularTo_INT(const template_vec3<number_t> b) const
 			{
@@ -1071,12 +1072,27 @@ namespace harz {
 				return { pow(x,xE),pow(y,xE),pow(z,xE) };
 			}
 
+			// Pow each element on corresponding b value axis
+			MATHARZ_INLINE template_vec3<number_t> PowEachElement(const template_vec3<number_t> b) const
+			{
+				return { pow(x,b.x),pow(y,b.y),pow(z,b.z) };
+			}
+
 			// Pow each element on xE value
 			MATHARZ_INLINE template_vec3<number_t>& SelfPowEachElement(const number_t xE)
 			{
 				x = pow(x, xE);
 				y = pow(y, xE);
 				z = pow(z, xE);
+				return *this;
+			};
+
+			// Pow each element on corresponding b value axis
+			MATHARZ_INLINE template_vec3<number_t>& SelfPowEachElement(const template_vec3<number_t> b)
+			{
+				x = pow(x, b.x);
+				y = pow(y, b.y);
+				z = pow(z, b.z);
 				return *this;
 			};
 
@@ -1213,6 +1229,28 @@ namespace harz {
 			MATHARZ_INLINE const number_t& operator[](size_t i) const { MATHARZ_ASSERT((i < 3), "Out of size index"); return data[i]; };
 		}; // template_vec3
 
+		template<typename number_t>
+		MATHARZ_INLINE template_vec3<number_t> operator*(number_t a, const template_vec3<number_t>& vec)
+		{
+			return vec.ScalarMultiply(a);
+		}
+
+		template<typename number_t>
+		MATHARZ_INLINE template_vec3<number_t> operator/(number_t a, const template_vec3<number_t>& vec)
+		{
+			return vec.ScalarDivide(a);
+		}
+		template<typename number_t>
+		MATHARZ_INLINE template_vec3<number_t> operator+(number_t a, const template_vec3<number_t>& vec)
+		{
+			return vec.ScalarAdd(a);
+		}
+		template<typename number_t>
+		MATHARZ_INLINE template_vec3<number_t> operator-(number_t a, const template_vec3<number_t>& vec)
+		{
+			return vec.ScalarSubtract(a);
+		}
+
 		// Vector with 4 components
 		template<typename number_t>
 		struct template_vec4 {
@@ -1222,7 +1260,6 @@ namespace harz {
 				number_t rowData[1][4];
 				number_t columnData[4][1];
 				number_t lineArrayData[4];
-				struct { number_t a, b, c, d; };
 				struct { number_t x, y, z, w; };
 				struct { number_t r, g, b, a; };
 				struct { template_vec3<number_t> xyz; number_t IgnoredW; };
@@ -2059,13 +2096,15 @@ namespace harz {
 			// bool operators
 			MATHARZ_INLINE bool operator==(template_matrix3x3< number_t> mat3)
 			{
-				return vectors[0] == mat3.vectors[0].xy && vectors[1] == mat3.vectors[1].xy;
+				return vectors[0].x == mat3.vectors[0].x && vectors[0].y == mat3.vectors[0].y &&
+					vectors[1].x == mat3.vectors[1].x && vectors[1].y == mat3.vectors[1].y;
 			};
 
 			// bool operators
 			MATHARZ_INLINE bool operator==(template_matrix4x4< number_t> mat4)
 			{
-				return vectors[0] == mat4.vectors[0].xy && vectors[1] == mat4.vectors[1].xy;
+				return vectors[0].x == mat4.vectors[0].x && vectors[0].y == mat4.vectors[0].y &&
+					vectors[1].x == mat4.vectors[1].x && vectors[1].y == mat4.vectors[1].y;
 			};
 
 			// Access operators
@@ -2238,16 +2277,6 @@ namespace harz {
 					template_vec4<number_t> gVector;
 					template_vec4<number_t> bVector;
 					template_vec4<number_t> aVector;
-				};
-				struct {
-					template_vec3<number_t> abcVector;
-					number_t d;
-					template_vec3<number_t> efgVector;
-					number_t h;
-					template_vec3<number_t> ijkVector;
-					number_t l;
-					template_vec3<number_t> mnoVector;
-					number_t p;
 				};
 				struct {
 					number_t
@@ -2638,6 +2667,11 @@ namespace harz {
 
 		template<typename number_t> MATHARZ_INLINE template_vec3<number_t> Normalize(template_vec3<number_t> vec) {
 			return vec.GetNormalized();
+		};
+
+		template<typename number_t> MATHARZ_INLINE template_vec3<number_t> Lerp(template_vec3<number_t> a, template_vec3<number_t> b, number_t t) {
+			MATHARZ_CHECK(t >= 0.f && t <= 1.f);
+			return (1.f - t) * a + t * b;
 		};
 
 		template<typename number_t, typename angle_t = float>
