@@ -1,10 +1,10 @@
 #ifndef MATHARZ_HEADER
 #define MATHARZ_HEADER
 
-// @2023 (IHarzI) Maslianka Zakhar
+// @2023-2024 (IHarzI) Maslianka Zakhar
 // Written mainly for own game engine project(Phosphor engine)
-// Header only, glm interchangeable(not fully, yet....) and easy to use math lib(at least for me, i hope), mainly for game(engine) projects
-// It's not fully finished version(work in progress...)
+// Header only, and easy to use math lib(at least for me, i hope), mainly for game(engine) projects
+// WIP
 
 #include <stdlib.h>
 #include <math.h>
@@ -76,6 +76,125 @@ MATHARZ_ASSERT((condition), "CONDITION FAILED!");
 #define matharz harz::math
 namespace harz {
 	namespace math {
+
+
+		// Forward declaration of types
+		template<typename number_t>
+		struct template_vec2;
+		template<typename number_t>
+		struct template_vec3;
+		template<typename number_t>
+		struct template_vec4;
+		template<typename number_t>
+		struct template_quaternion;
+		template<typename number_t>
+		struct template_matrix2x2;
+		template<typename number_t>
+		struct template_matrix3x3;
+		template<typename number_t>
+		struct template_matrix4x4;
+
+		template<typename number_t>
+		using template_row2 = template_vec2<number_t>;
+		template<typename number_t>
+		using template_row3 = template_vec3<number_t>;
+		template<typename number_t>
+		using template_row4 = template_vec4<number_t>;
+
+		template<typename number_t>
+		using template_column2 = template_vec2<number_t>;
+		template<typename number_t>
+		using template_column3 = template_vec3<number_t>;
+		template<typename number_t>
+		using template_column4 = template_vec4<number_t>;
+
+		template<typename number_t>
+		using template_matrix2x1 = template_vec2<number_t>;
+		template<typename number_t>
+		using template_matrix3x1 = template_vec3<number_t>;
+		template<typename number_t>
+		using template_matrix4x1 = template_vec4<number_t>;
+
+		// float 32 quat, by default
+		using quat = template_quaternion<MATHARZ_DEFAULT_FP>;
+
+		// float 32 vec2, by default
+		using vec2 = template_vec2<MATHARZ_DEFAULT_FP>;
+		// float64 vec2
+		using vec2d = template_vec2<double>;
+		// float32 vec2
+		using vec2f = template_vec2<float>;
+		// int32 vec2
+		using vec2i = template_vec2<int>;
+		// int16 vec2
+		using vec2s = template_vec2<short>;
+		// int8 vec2
+		using vec2c = template_vec2<char>;
+
+		// float 32 vec3, by default
+		using vec3 = template_vec3<MATHARZ_DEFAULT_FP>;
+		// float64 vec3
+		using vec3d = template_vec3<double>;
+		// float32 vec3
+		using vec3f = template_vec3<float>;
+		// int32 vec3
+		using vec3i = template_vec3<int>;
+		// int16 vec3
+		using vec3s = template_vec3<short>;
+		// int8 vec3
+		using vec3c = template_vec3<char>;
+
+		// float 32 vec4, by default
+		using vec4 = template_vec4<MATHARZ_DEFAULT_FP>;
+		// float64 vec4
+		using vec4d = template_vec4<double>;
+		// float32 vec4
+		using vec4f = template_vec4<float>;
+		// int32 vec4
+		using vec4i = template_vec4<int>;
+		// int16 vec4
+		using vec4s = template_vec4<short>;
+		// int8 vec4
+		using vec4c = template_vec4<char>;
+
+		// float 32 mat2, by default
+		using mat2x2 = template_matrix2x2<MATHARZ_DEFAULT_FP>;
+		// float64 mat2
+		using mat2x2d = template_matrix2x2<double>;
+		// float32 mat2
+		using mat2x2f = template_matrix2x2<float>;
+		// int32 mat2
+		using mat2x2i = template_matrix2x2<int>;
+		// int16 mat2
+		using mat2x2s = template_matrix2x2<short>;
+		// int8 mat2
+		using mat2x2c = template_matrix2x2<char>;
+
+		// float 32 mat3, by default
+		using mat3x3 = template_matrix3x3<MATHARZ_DEFAULT_FP>;
+		// float64 mat3
+		using mat3x3d = template_matrix3x3<double>;
+		// float32 mat3
+		using mat3x3f = template_matrix3x3<float>;
+		// int32 mat3
+		using mat3x3i = template_matrix3x3<int>;
+		// int16 mat3
+		using mat3x3s = template_matrix3x3<short>;
+		// int8 mat3
+		using mat3x3c = template_matrix3x3<char>;
+
+		// float 32 mat4, by default
+		using mat4x4 = template_matrix4x4<MATHARZ_DEFAULT_FP>;
+		// float64 mat4
+		using mat4x4d = template_matrix4x4<double>;
+		// float32 mat4
+		using mat4x4f = template_matrix4x4<float>;
+		// int32 mat4
+		using mat4x4i = template_matrix4x4<int>;
+		// int16 mat4
+		using mat4x4s = template_matrix4x4<short>;
+		// int8 mat4
+		using mat4x4c = template_matrix4x4<char>;
 
 		template<typename number_t = float>
 		MATHARZ_INLINE number_t pi()
@@ -263,6 +382,16 @@ namespace harz {
 			return radians * 180.0 / pi<long double>();
 		}
 
+		MATHARZ_STATIC_GLOBAL constexpr float MaxFloat32()
+		{
+			return std::numeric_limits<float>::max();
+		}
+
+		MATHARZ_STATIC_GLOBAL constexpr double MaxFloat64()
+		{
+			return std::numeric_limits<double>::max();
+		}
+
 		template<typename number_t, typename other_number_t>
 		MATHARZ_INLINE number_t pow(number_t value, other_number_t exp)
 		{
@@ -293,6 +422,27 @@ namespace harz {
 		MATHARZ_INLINE comparableType abs(comparableType x)
 		{
 			return std::abs(x);
+		}
+
+		// Abs value x
+		template<typename number_t>
+		MATHARZ_INLINE template_vec2<number_t> abs(template_vec2<number_t> vec2)
+		{
+			return { abs(vec2.x), abs(vec2.y) };
+		}
+
+		// Abs value x
+		template<typename number_t>
+		MATHARZ_INLINE template_vec3<number_t> abs(template_vec3<number_t> vec3)
+		{
+			return { abs(vec3.x), abs(vec3.y), abs(vec3.z) };
+		}
+
+		// Abs value x
+		template<typename number_t>
+		MATHARZ_INLINE template_vec4<number_t> abs(template_vec4<number_t> vec4)
+		{
+			return { abs(vec4.x) , abs(vec4.y), abs(vec4.z), abs(vec4.w) };
 		}
 
 		// Remainder of division from x / y
@@ -359,9 +509,9 @@ namespace harz {
 		}
 
 		template<typename number_t = float, typename other_number_t = float>
-		MATHARZ_INLINE bool equal(number_t a, other_number_t b, float safe_guard = MTHRZ_FLOAT_EPSILON)
+		MATHARZ_INLINE bool equal(number_t a, other_number_t b, float safeGuard = MTHRZ_FLOAT_EPSILON)
 		{
-			return abs(a - b) <= safe_guard;
+			return abs(a - b) <= safeGuard;
 		};
 
 		template<typename number_t = float, typename other_number_t = float>
@@ -377,134 +527,16 @@ namespace harz {
 		};
 
 		template<typename number_t = float, typename other_number_t = float>
-		MATHARZ_INLINE bool more_or_equal(number_t a, other_number_t b, float safe_guard = MTHRZ_FLOAT_EPSILON)
+		MATHARZ_INLINE bool more_or_equal(number_t a, other_number_t b, float safeGuard = MTHRZ_FLOAT_EPSILON)
 		{
 			return more(a, b) || equal(a, b);
 		};
 
 		template<typename number_t = float, typename other_number_t = float>
-		MATHARZ_INLINE bool less_or_equal(number_t a, other_number_t b, float safe_guard = MTHRZ_FLOAT_EPSILON)
+		MATHARZ_INLINE bool less_or_equal(number_t a, other_number_t b, float safeGuard = MTHRZ_FLOAT_EPSILON)
 		{
 			return less(a, b) || equal(a, b);
 		};
-
-		// Forward declaration of types
-		template<typename number_t>
-		struct template_vec2;
-		template<typename number_t>
-		struct template_vec3;
-		template<typename number_t>
-		struct template_vec4;
-		template<typename number_t>
-		struct template_quaternion;
-		template<typename number_t>
-		struct template_matrix2x2;
-		template<typename number_t>
-		struct template_matrix3x3;
-		template<typename number_t>
-		struct template_matrix4x4;
-
-		template<typename number_t>
-		using template_row2 = template_vec2<number_t>;
-		template<typename number_t>
-		using template_row3 = template_vec3<number_t>;
-		template<typename number_t>
-		using template_row4 = template_vec4<number_t>;
-
-		template<typename number_t>
-		using template_column2 = template_vec2<number_t>;
-		template<typename number_t>
-		using template_column3 = template_vec3<number_t>;
-		template<typename number_t>
-		using template_column4 = template_vec4<number_t>;
-
-		template<typename number_t>
-		using template_matrix2x1 = template_vec2<number_t>;
-		template<typename number_t>
-		using template_matrix3x1 = template_vec3<number_t>;
-		template<typename number_t>
-		using template_matrix4x1 = template_vec4<number_t>;
-
-		// float 32 quat, by default
-		using quat = template_quaternion<MATHARZ_DEFAULT_FP>;
-
-		// float 32 vec2, by default
-		using vec2 = template_vec2<MATHARZ_DEFAULT_FP>;
-		// float64 vec2
-		using vec2d = template_vec2<double>;
-		// float32 vec2
-		using vec2f = template_vec2<float>;
-		// int32 vec2
-		using vec2i = template_vec2<int>;
-		// int16 vec2
-		using vec2s = template_vec2<short>;
-		// int8 vec2
-		using vec2c = template_vec2<char>;
-
-		// float 32 vec3, by default
-		using vec3 = template_vec3<MATHARZ_DEFAULT_FP>;
-		// float64 vec3
-		using vec3d = template_vec3<double>;
-		// float32 vec3
-		using vec3f = template_vec3<float>;
-		// int32 vec3
-		using vec3i = template_vec3<int>;
-		// int16 vec3
-		using vec3s = template_vec3<short>;
-		// int8 vec3
-		using vec3c = template_vec3<char>;
-
-		// float 32 vec4, by default
-		using vec4 = template_vec4<MATHARZ_DEFAULT_FP>;
-		// float64 vec4
-		using vec4d = template_vec4<double>;
-		// float32 vec4
-		using vec4f = template_vec4<float>;
-		// int32 vec4
-		using vec4i = template_vec4<int>;
-		// int16 vec4
-		using vec4s = template_vec4<short>;
-		// int8 vec4
-		using vec4c = template_vec4<char>;
-
-		// float 32 mat2, by default
-		using mat2x2 = template_matrix2x2<MATHARZ_DEFAULT_FP>;
-		// float64 mat2
-		using mat2x2d = template_matrix2x2<double>;
-		// float32 mat2
-		using mat2x2f = template_matrix2x2<float>;
-		// int32 mat2
-		using mat2x2i = template_matrix2x2<int>;
-		// int16 mat2
-		using mat2x2s = template_matrix2x2<short>;
-		// int8 mat2
-		using mat2x2c = template_matrix2x2<char>;
-
-		// float 32 mat3, by default
-		using mat3x3 = template_matrix3x3<MATHARZ_DEFAULT_FP>;
-		// float64 mat3
-		using mat3x3d = template_matrix3x3<double>;
-		// float32 mat3
-		using mat3x3f = template_matrix3x3<float>;
-		// int32 mat3
-		using mat3x3i = template_matrix3x3<int>;
-		// int16 mat3
-		using mat3x3s = template_matrix3x3<short>;
-		// int8 mat3
-		using mat3x3c = template_matrix3x3<char>;
-
-		// float 32 mat4, by default
-		using mat4x4 = template_matrix4x4<MATHARZ_DEFAULT_FP>;
-		// float64 mat4
-		using mat4x4d = template_matrix4x4<double>;
-		// float32 mat4
-		using mat4x4f = template_matrix4x4<float>;
-		// int32 mat4
-		using mat4x4i = template_matrix4x4<int>;
-		// int16 mat4
-		using mat4x4s = template_matrix4x4<short>;
-		// int8 mat4
-		using mat4x4c = template_matrix4x4<char>;
 
 		// Vector with 2 components
 		template<typename number_t>
@@ -530,7 +562,7 @@ namespace harz {
 
 			template_vec2<number_t>(std::initializer_list<number_t> initList)
 			{
-				MATHARZ_ASSERT(initList.size() <= 2, "Init list is not have a proper size(>2 numbers)!");
+				MATHARZ_ASSERT(initList.size() <= 2, "Init list doesn't have a proper size(>2 numbers)!");
 
 				if (initList.size() == 1)
 				{
@@ -667,7 +699,7 @@ namespace harz {
 			{
 				MATHARZ_ASSERT((b.x != 0 && b.y != 0), "vec2 Divide by ZERO!")
 
-					return { x / b.x, y / b.y };
+				return { x / b.x, y / b.y };
 			};
 
 			// Division
@@ -675,7 +707,7 @@ namespace harz {
 			MATHARZ_INLINE template_vec2<number_t>& operator/=(const template_vec2<number_t> b)
 			{
 				MATHARZ_ASSERT((b.x != 0 && b.y != 0), "vec2 Divide by ZERO!")
-					x /= b.x;
+				x /= b.x;
 				y /= b.y;
 				return *this;
 			};
@@ -688,7 +720,7 @@ namespace harz {
 			{
 				MATHARZ_ASSERT((b != 0), "vec2 Divide by ZERO!")
 
-					return { x / b, y / b };
+				return { x / b, y / b };
 			};
 
 			// Scalar division
@@ -696,7 +728,7 @@ namespace harz {
 			MATHARZ_INLINE template_vec2<number_t>& operator/=(const number_t b)
 			{
 				MATHARZ_ASSERT((b != 0), "vec2 Divide by ZERO!")
-					x /= b;
+				x /= b;
 				y /= b;
 				return *this;
 			};
@@ -737,7 +769,7 @@ namespace harz {
 
 			template_vec3<number_t>(std::initializer_list<number_t> initList)
 			{
-				MATHARZ_ASSERT(initList.size() <= 3, "Init list is not have a proper size(>3 numbers)!");
+				MATHARZ_ASSERT(initList.size() <= 3, "Init list doesn't a proper size(>3 numbers)!");
 
 				if (initList.size() == 1)
 				{
@@ -899,7 +931,7 @@ namespace harz {
 			{
 				MATHARZ_ASSERT((b.x != 0 && b.y != 0 && b.z != 0), "VEC3 Divide by ZERO!")
 
-					return { x / b.x, y / b.y, z / b.z };
+				return { x / b.x, y / b.y, z / b.z };
 			};
 
 			// Division
@@ -907,7 +939,7 @@ namespace harz {
 			MATHARZ_INLINE template_vec3<number_t>& operator/=(const template_vec3<number_t> b)
 			{
 				MATHARZ_ASSERT((b.x != 0 && b.y != 0 && b.z != 0), "VEC3 Divide by ZERO!")
-					x /= b.x;
+				x /= b.x;
 				y /= b.y;
 				z /= b.z;
 				return *this;
@@ -920,7 +952,7 @@ namespace harz {
 			MATHARZ_INLINE template_vec3<number_t> ScalarDivide(const number_t b) const
 			{
 				MATHARZ_ASSERT((b != 0), "VEC3 Divide by ZERO!")
-					return { x / b, y / b, z / b };
+				return { x / b, y / b, z / b };
 			}
 
 			// Scalar division
@@ -929,7 +961,7 @@ namespace harz {
 			{
 				MATHARZ_ASSERT((b != 0), "VEC3 Divide by ZERO!")
 
-					return ScalarDivide(b);
+				return ScalarDivide(b);
 			}
 
 			// Scalar division 
@@ -937,7 +969,7 @@ namespace harz {
 			MATHARZ_INLINE template_vec3<number_t>& operator/=(const number_t b)
 			{
 				MATHARZ_ASSERT((b != 0), "VEC3 Divide by ZERO!")
-					x /= b;
+				x /= b;
 				y /= b;
 				z /= b;
 				return *this;
@@ -1014,16 +1046,16 @@ namespace harz {
 			MATHARZ_INLINE template_vec3<number_t> GetNormalized() const
 			{
 				number_t lenght = Lenght();
-				MATHARZ_ASSERT((lenght != 0), "VEC3 Divide by ZERO!")
-					return { x / lenght,y / lenght,z / lenght };
+				MATHARZ_ASSERT(!(equal(lenght,0)), "VEC3 Divide by ZERO!")
+				return { x / lenght,y / lenght,z / lenght };
 			}
 
 			// Normalize this vector
 			MATHARZ_INLINE template_vec3<number_t>& Normalize()
 			{
 				number_t lenght = Lenght();
-				MATHARZ_ASSERT((lenght != 0), "VEC3 Divide by ZERO!")
-					x /= lenght;
+				MATHARZ_ASSERT(!(equal(lenght,0)), "VEC3 Divide by ZERO!")
+				x /= lenght;
 				y /= lenght;
 				z /= lenght;
 				return *this;
@@ -1039,31 +1071,31 @@ namespace harz {
 			// Check if this vector is perpendicular to vector b
 			MATHARZ_INLINE bool IsPerpendicularTo_INT(const template_vec3<number_t> b) const
 			{
-				return (DotProduct(b) == static_cast<number_t>(0));
+				return (equal(DotProduct(b), static_cast<number_t>(0)));
 			}
 
 			// Check if this vector is parallel to vector b
 			MATHARZ_INLINE bool IsParallelTo_INT(const template_vec3<number_t> b) const
 			{
-				return (CrossProduct(b) == static_cast<number_t>(0));
+				return (equal(CrossProduct(b), static_cast<number_t>(0)));
 			}
 
 			/*	Check if this vector is perpendicular to vector b with safe guard
 				for avoiding bugs with floating point, (false)(0.0001 == 0) ; (true)(-safeGuard(.15) <0.0001 < safeGuard)
 			*/
-			MATHARZ_INLINE bool IsPerpendicularTo(const template_vec3<number_t> b, number_t safeGuard = 0.15) const
+			MATHARZ_INLINE bool IsPerpendicularTo(const template_vec3<number_t> b, number_t safeGuard = MTHRZ_FLOAT_EPSILON) const
 			{
 				auto tempDP = DotProduct(b);
-				return (tempDP < static_cast<number_t>(safeGuard) && tempDP > static_cast<number_t>(-safeGuard));
+				return (less(tempDP, static_cast<number_t>(safeGuard)) && more(tempDP, static_cast<number_t>(-safeGuard)));
 			}
 
 			/*	Check if this vector is parallel to vector b with safe guard
 				(for avoiding bugs with floating point, (false)(0.0001 == 0) ; (true)(-safeGuard(.15) <0.0001 < safeGuard))
 			*/
-			MATHARZ_INLINE bool IsParallelTo(const template_vec3<number_t> b, number_t safeGuard = 0.15) const
+			MATHARZ_INLINE bool IsParallelTo(const template_vec3<number_t> b, number_t safeGuard = MTHRZ_FLOAT_EPSILON) const
 			{
 				auto tempVector = CrossProduct(b);
-				return (tempVector < static_cast<number_t>(safeGuard) && tempVector > static_cast<number_t>(-safeGuard));
+				return (less(tempVector, static_cast<number_t>(safeGuard)) && more(tempVector, static_cast<number_t>(-safeGuard)));
 			}
 
 			// Pow each element on xE value
@@ -1096,11 +1128,17 @@ namespace harz {
 				return *this;
 			};
 
-			// Projection on b vector
-			MATHARZ_INLINE template_vec3<number_t> Projection(const template_vec3<number_t> b) const
+			// Projection from b vector onto this
+			MATHARZ_INLINE template_vec3<number_t> ProjectionFrom(const template_vec3<number_t> b) const
 			{
 				MATHARZ_ASSERT((SquareLength() != 0), "VEC3 Divide by ZERO!")
 					return (*this * (b.DotProduct(*this) / SquareLength()));
+			}
+
+			// Projection on b vector from this
+			MATHARZ_INLINE template_vec3<number_t> Projection(const template_vec3<number_t> b) const
+			{
+				return b.ProjectionFrom(*this);
 			}
 
 			// overloaded XOR operator for use as Pow operation(on each element)
@@ -1149,7 +1187,7 @@ namespace harz {
 			};
 
 			MATHARZ_INLINE bool operator ==(template_vec3<number_t> vec3) const {
-				return (equal(data[0], vec3.data[0]) && equal(data[1], vec3.data[1]) && equal(data[2], vec3.data[2]));
+				return (equal(*this, vec3));
 			};
 
 			MATHARZ_INLINE bool operator >=(number_t number) const {
@@ -1165,7 +1203,7 @@ namespace harz {
 			};
 
 			MATHARZ_INLINE bool operator <=(number_t number) const {
-				return { less_or_equal(data[0], number) };
+				return { less_or_equal(data[0], number) && less_or_equal(data[1], number)  && less_or_equal(data[2], number) };
 			};
 
 			MATHARZ_INLINE bool operator <=(template_vec2<number_t> vec2) const {
@@ -1201,27 +1239,27 @@ namespace harz {
 			};
 
 			MATHARZ_INLINE bool operator !=(template_vec4<number_t> vec4) const {
-				return !(vec4.xyz == *this);
+				return !(equal(vec4.xyz, *this));
 			};
 
 			MATHARZ_INLINE bool operator ==(template_vec4<number_t> vec4) const {
-				return vec4.xyz == *this;
+				return equal(vec4.xyz, *this);
 			};
 
 			MATHARZ_INLINE bool operator >=(template_vec4<number_t> vec4) const {
-				return vec4.xyz >= *this;
+				return more_or_equal(vec4.xyz, *this);
 			};
 
 			MATHARZ_INLINE bool operator <=(template_vec4<number_t> vec4) const {
-				return vec4.xyz <= *this;
+				return less_or_equal(vec4.xyz, *this);
 			};
 
 			MATHARZ_INLINE bool operator >(template_vec4<number_t> vec4) const {
-				return vec4.xyz > *this;
+				return more(vec4.xyz, *this);
 			};
 
 			MATHARZ_INLINE bool operator <(template_vec4<number_t> vec4) const {
-				return vec4.xyz < *this;
+				return less(vec4.xyz, *this);
 			};
 
 			// Access operators
@@ -1287,7 +1325,7 @@ namespace harz {
 
 			template_vec4<number_t>(std::initializer_list<number_t> initList)
 			{
-				MATHARZ_ASSERT(initList.size() <= 4, "Init list is not have a proper size(>4 numbers)!");
+				MATHARZ_ASSERT(initList.size() <= 4, "Init list doesn't a proper size(>4 numbers)!");
 
 				if (initList.size() == 1)
 				{
@@ -1489,7 +1527,7 @@ namespace harz {
 
 			template_quaternion<number_t>(std::initializer_list<number_t> initList)
 			{
-				MATHARZ_ASSERT(initList.size() <= 4, "Init list is not have a proper size(>4 numbers)!");
+				MATHARZ_ASSERT(initList.size() <= 4, "Init list doesn't a proper size(>4 numbers)!");
 
 				std::copy_n(initList.begin(), clamp((int)(initList.end() - initList.begin()), 0, 4), data);
 			}
@@ -1922,7 +1960,7 @@ namespace harz {
 
 			template_matrix2x2<number_t>(std::initializer_list<number_t> initList)
 			{
-				MATHARZ_ASSERT(initList.size() <= 4, "Init list is not have a proper size(>4 numbers)!");
+				MATHARZ_ASSERT(initList.size() <= 4, "Init list doesn't a proper size(>4 numbers)!");
 
 				if (initList.size() == 1)
 				{
@@ -2165,7 +2203,7 @@ namespace harz {
 
 			template_matrix3x3<number_t>(std::initializer_list<number_t> initList)
 			{
-				MATHARZ_ASSERT(initList.size() <= 9, "Init list is not have a proper size(>9 numbers)!");
+				MATHARZ_ASSERT(initList.size() <= 9, "Init list doesn't a proper size(>9 numbers)!");
 
 				if (initList.size() == 1)
 				{
@@ -2327,7 +2365,7 @@ namespace harz {
 
 			template_matrix4x4<number_t>(std::initializer_list<number_t> initList)
 			{
-				MATHARZ_ASSERT(initList.size() <= 16, "Init list is not have a proper size(>16 numbers)!");
+				MATHARZ_ASSERT(initList.size() <= 16, "Init list doesn't a proper size(>16 numbers)!");
 
 				if (initList.size() == 1)
 				{
@@ -2631,6 +2669,10 @@ namespace harz {
 
 		template<typename number_t> MATHARZ_INLINE template_vec3<number_t> ScalarDivide(template_vec3<number_t> lft, number_t rgt) {
 			return (lft / rgt);
+		};
+
+		template<typename number_t> MATHARZ_INLINE template_vec3<number_t> ProjectionFrom(template_vec3<number_t> lft, template_vec3<number_t> rgt) {
+			return (lft.ProjectionFrom(rgt));
 		};
 
 		template<typename number_t> MATHARZ_INLINE template_vec3<number_t> Projection(template_vec3<number_t> lft, template_vec3<number_t> rgt) {
