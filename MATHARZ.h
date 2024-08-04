@@ -54,22 +54,6 @@
 #define MATHARZ_CHECK(condition) \
 MATHARZ_ASSERT((condition), "CONDITION FAILED!");
 
-// in MATHARZ_USE_CUSTOM_SQRT define custom sqrt func that accepts float/double/int values
-#ifndef MATHARZ_USE_CUSTOM_SQRT
-#define MATHARZ_USE_STD_SQRT
-#define MTHRZ_SQRT(x) std::sqrt(x)
-#else
-#define MTHRZ_SQRT(x) MATHARZ_USE_CUSTOM_SQRT(x)
-#endif // !MATHARZ_USE_CUSTOM_SQRT
-
-// in MATHARZ_USE_CUSTOM_POW define custom pow func that accepts float/double/int values
-#ifndef MATHARZ_USE_CUSTOM_POW
-#define MATHARZ_USE_STD_POW
-#define MTHRZ_POW(x,p) std::pow(x,p)
-#else
-#define MTHRZ_POW(x,p) MATHARZ_USE_CUSTOM_POW(x,p)
-#endif // !MATHARZ_USE_CUSTOM_POW
-
 // Small enough value to check float with guard
 #define MTHRZ_FLOAT_EPSILON 0.00001f
 
@@ -101,19 +85,20 @@ namespace harz {
 		template<typename number_t>
 		using template_row4 = template_vec4<number_t>;
 
+		// TODO: column vectors
 		template<typename number_t>
-		using template_column2 = template_vec2<number_t>;
+		struct template_column2;
 		template<typename number_t>
-		using template_column3 = template_vec3<number_t>;
+		struct template_column3;
 		template<typename number_t>
-		using template_column4 = template_vec4<number_t>;
+		struct template_column4;
 
 		template<typename number_t>
-		using template_matrix2x1 = template_vec2<number_t>;
+		using template_matrix2x1 = template_column2<number_t>;
 		template<typename number_t>
-		using template_matrix3x1 = template_vec3<number_t>;
+		using template_matrix3x1 = template_column3<number_t>;
 		template<typename number_t>
-		using template_matrix4x1 = template_vec4<number_t>;
+		using template_matrix4x1 = template_column4<number_t>;
 
 		// float 32 quat, by default
 		using quat = template_quaternion<MATHARZ_DEFAULT_FP>;
@@ -395,12 +380,33 @@ namespace harz {
 		template<typename number_t, typename other_number_t>
 		MATHARZ_INLINE number_t pow(number_t value, other_number_t exp)
 		{
-			return MTHRZ_POW(value, exp);
+			return std::pow(value, exp);
 		}
+
+		MATHARZ_INLINE float pow(float value, float exp)
+		{
+			std::powf(value, exp);
+		}
+
+		MATHARZ_INLINE double pow(double value, double exp)
+		{
+			return std::pow(value, exp);
+		}
+
 		template<typename number_t = float>
 		MATHARZ_INLINE number_t sqrt(number_t value)
 		{
-			return MTHRZ_SQRT(value);
+			return std::sqrt(value);
+		}
+
+		MATHARZ_INLINE float sqrt(float value)
+		{
+			return std::sqrtf(value);
+		}
+
+		MATHARZ_INLINE double sqrt(double value)
+		{
+			return std::sqrt(value);
 		}
 
 		// Min value from x, y
@@ -410,11 +416,31 @@ namespace harz {
 			return (x < y) ? x : y;
 		}
 
+		MATHARZ_INLINE float min(float x, float y)
+		{
+			return std::fminf(x, y);
+		}
+
+		MATHARZ_INLINE double min(double x, double y)
+		{
+			return std::fmin(x, y);
+		}
+
 		// Max value from x, y
 		template<typename comparableType, typename other_comparableType>
 		MATHARZ_INLINE comparableType max(comparableType x, other_comparableType y)
 		{
 			return (x > y) ? x : y;
+		}
+
+		MATHARZ_INLINE float max(float x, float y)
+		{
+			return std::fmaxf(x, y);
+		}
+
+		MATHARZ_INLINE double max(double x, double y)
+		{
+			return std::fmax(x, y);
 		}
 
 		// Abs value x
@@ -425,20 +451,29 @@ namespace harz {
 		}
 
 		// Abs value x
+		MATHARZ_INLINE float abs(float x)
+		{
+			return std::fabsf(x);
+		}
+
+		// Abs value x
+		MATHARZ_INLINE double abs(double x)
+		{
+			return std::fabs(x);
+		}
+
 		template<typename number_t>
 		MATHARZ_INLINE template_vec2<number_t> abs(template_vec2<number_t> vec2)
 		{
 			return { abs(vec2.x), abs(vec2.y) };
 		}
 
-		// Abs value x
 		template<typename number_t>
 		MATHARZ_INLINE template_vec3<number_t> abs(template_vec3<number_t> vec3)
 		{
 			return { abs(vec3.x), abs(vec3.y), abs(vec3.z) };
 		}
 
-		// Abs value x
 		template<typename number_t>
 		MATHARZ_INLINE template_vec4<number_t> abs(template_vec4<number_t> vec4)
 		{
@@ -538,6 +573,17 @@ namespace harz {
 			return less(a, b) || equal(a, b);
 		};
 
+		// Ray Tracing MATH
+		// -----------------
+
+		// Schlick's approximation for reflections
+		MATHARZ_INLINE double reflectance(double cosine, double refractionIndex) {
+			auto r0 = (1 - refractionIndex) / (1 + refractionIndex);
+			r0 = r0 * r0;
+			return r0 + (1 - r0) * pow((1 - cosine), 5);
+		}
+		// -----------------
+
 		// Vector with 2 components
 		template<typename number_t>
 		struct template_vec2 {
@@ -580,6 +626,11 @@ namespace harz {
 			{
 				return { static_cast<different_number_t>(this->x),static_cast<different_number_t>(this->y) };
 			};
+
+			MATHARZ_INLINE bool NearZero() const
+			{
+				return less(abs(*this), MTHRZ_FLOAT_EPSILON);
+			}
 
 			// Scalar addition
 			// @return Vector with results of addition of each element with scalar 
@@ -794,6 +845,10 @@ namespace harz {
 				return { static_cast<different_number_t>(this->x),static_cast<different_number_t>(this->y),static_cast<different_number_t>(this->z) };
 			};
 
+			MATHARZ_INLINE bool NearZero() const
+			{
+				return less(abs(*this), MTHRZ_FLOAT_EPSILON);
+			}
 			// Scalar addition
 			// @return Vector with results of addition of each element with scalar 
 			MATHARZ_INLINE template_vec3<number_t> ScalarAdd(const number_t b) const
@@ -1080,18 +1135,14 @@ namespace harz {
 				return (equal(CrossProduct(b), static_cast<number_t>(0)));
 			}
 
-			/*	Check if this vector is perpendicular to vector b with safe guard
-				for avoiding bugs with floating point, (false)(0.0001 == 0) ; (true)(-safeGuard(.15) <0.0001 < safeGuard)
-			*/
+			// Check if this vector is perpendicular to vector b with safe guard
 			MATHARZ_INLINE bool IsPerpendicularTo(const template_vec3<number_t> b, number_t safeGuard = MTHRZ_FLOAT_EPSILON) const
 			{
 				auto tempDP = DotProduct(b);
-				return (less(tempDP, static_cast<number_t>(safeGuard)) && more(tempDP, static_cast<number_t>(-safeGuard)));
+				return abs(tempDP) < safeGuard;
 			}
 
-			/*	Check if this vector is parallel to vector b with safe guard
-				(for avoiding bugs with floating point, (false)(0.0001 == 0) ; (true)(-safeGuard(.15) <0.0001 < safeGuard))
-			*/
+			// Check if this vector is parallel to vector b with safe guard
 			MATHARZ_INLINE bool IsParallelTo(const template_vec3<number_t> b, number_t safeGuard = MTHRZ_FLOAT_EPSILON) const
 			{
 				auto tempVector = CrossProduct(b);
@@ -1140,6 +1191,25 @@ namespace harz {
 			{
 				return b.ProjectionFrom(*this);
 			}
+
+			// RAY TRACING MATH
+			// -----------------------
+			// Calculate reflected ray direction from surface with some normal(n), reflectFactor - to negate vector in-surface part
+			MATHARZ_INLINE template_vec3<number_t> Reflect(const template_vec3<number_t>& n) {
+				const number_t reflectFactor = 2;
+				return *this - (n * reflectFactor * DotProduct(n));
+			}
+
+			MATHARZ_INLINE template_vec3<number_t> Refract(const template_vec3<number_t>& n, double etai_over_etat)
+			{
+				double cosTheta = min((*this * -1.f).DotProduct(n), 1.0);
+
+				template_vec3<number_t> rOutPerp = (*this + n * cosTheta) * etai_over_etat;
+				template_vec3<number_t> rOutParallel = n * -sqrt(abs(1.0 - rOutPerp.SquareLength()));
+				return rOutPerp + rOutParallel;
+			}
+
+			//-------------------------
 
 			// overloaded XOR operator for use as Pow operation(on each element)
 
@@ -1359,6 +1429,10 @@ namespace harz {
 					static_cast<different_number_t>(this->z),static_cast<different_number_t>(this->w) };
 			};
 
+			MATHARZ_INLINE bool NearZero() const
+			{
+				return less(abs(*this), MTHRZ_FLOAT_EPSILON);
+			}
 			// Scalar multiplication
 			// @return Vector with results of multiplication of each element on scalar
 			MATHARZ_INLINE template_vec4<number_t> ScalarMultiply(const number_t b) const
@@ -1405,14 +1479,14 @@ namespace harz {
 				return *this;
 			}
 
-			// Subtraction
+			// Addition
 			// @return Vector with difference of each elements of vectors
 			MATHARZ_INLINE template_vec4<number_t> operator+(const template_vec4<number_t> b) const
 			{
 				return template_vec4<number_t> { x + b.x, y + b.y, z + b.z, w + b.w };
 			}
 
-			// Subtraction
+			// Addition
 			// @return This vector with difference of each elements of vectors
 			MATHARZ_INLINE template_vec4<number_t>& operator+=(const template_vec4<number_t> b) const
 			{
@@ -2258,6 +2332,17 @@ namespace harz {
 				return result;
 			}
 
+			// Multiply this matrix by another matrix b
+			MATHARZ_INLINE template_matrix3x3<number_t> Multiply(number_t b)
+			{
+				template_matrix3x3<number_t> result{};
+				for (int i = 0; i < 3; ++i)
+					for (int j = 0; j < 3; ++j)
+							result.data[i][j] = this->data[i][j] * b;
+						
+				return result;
+			}
+
 			// Calculate determinant of this matrix
 			MATHARZ_INLINE number_t Determinant()
 			{
@@ -2268,6 +2353,16 @@ namespace harz {
 				determinant += a13 * ((a21 * a32) - (a22 * a31));
 
 				return determinant;
+			}
+
+			// Addition
+			// @return Vector with difference of each elements of vectors
+			MATHARZ_INLINE template_matrix3x3<number_t> operator+(const template_matrix3x3<number_t> b) const
+			{
+				return template_matrix3x3<number_t> {
+					a11 + b.a11, a12 + b.a12, a13 + b.a13,
+					a21 + b.a21, a22 + b.a22, a23 + b.a23,
+					a31 + b.a31, a32 + b.a, a33 + b.a33};
 			}
 
 			// bool operators
@@ -2629,6 +2724,24 @@ namespace harz {
 		MATHARZ_INLINE template_matrix4x4<number_t> operator/ (number_t a, template_matrix4x4<number_t> mat4)
 		{
 			return { a / mat4.xWector, a / mat4.yWector, a / mat4.zWector, a / mat4.wWector };
+		}
+
+		template <typename number_t>
+		MATHARZ_INLINE template_vec2<number_t> operator+ (number_t a, template_vec2<number_t> vec2)
+		{
+			return { a + vec2.x, a + vec2.y };
+		}
+
+		template <typename number_t>
+		MATHARZ_INLINE template_vec3<number_t> operator+ (number_t a, template_vec3<number_t> vec3)
+		{
+			return { a + vec3.x, a + vec3.y, a + vec3.z };
+		}
+
+		template <typename number_t>
+		MATHARZ_INLINE template_vec4<number_t> operator+ (number_t a, template_vec4<number_t> vec4)
+		{
+			return { a + vec4.x, a + vec4.y, a + vec4.z, a + vec4.w };
 		}
 
 		template<typename number_t> MATHARZ_INLINE bool IsPerpendicular(template_vec3<number_t> vecA, template_vec3<number_t> vecB) {
