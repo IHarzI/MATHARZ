@@ -181,157 +181,157 @@ namespace harz {
 		// int8 mat4
 		using mat4x4c = template_matrix4x4<char>;
 
-		template<typename number_t = float>
+		template<typename number_t = MATHARZ_DEFAULT_FP>
 		MATHARZ_INLINE number_t pi()
 		{
 			return number_t(3.1415926535897932384626433);
 		}
 
-		template<typename number_t = float>
+		template<typename number_t = MATHARZ_DEFAULT_FP>
 		MATHARZ_INLINE  number_t two_pi()
 		{
 			return number_t(6.28318530717958647692528676655900576);
 		}
 
-		template<typename number_t = float>
+		template<typename number_t = MATHARZ_DEFAULT_FP>
 		MATHARZ_INLINE  number_t root_pi()
 		{
 			return number_t(1.772453850905516027);
 		}
 
-		template<typename number_t = float>
+		template<typename number_t = MATHARZ_DEFAULT_FP>
 		MATHARZ_INLINE  number_t half_pi()
 		{
 			return number_t(1.57079632679489661923132169163975144);
 		}
 
-		template<typename number_t = float>
+		template<typename number_t = MATHARZ_DEFAULT_FP>
 		MATHARZ_INLINE  number_t three_over_two_pi()
 		{
 			return number_t(4.71238898038468985769396507491925432);
 		}
 
-		template<typename number_t = float>
+		template<typename number_t = MATHARZ_DEFAULT_FP>
 		MATHARZ_INLINE  number_t quarter_pi()
 		{
 			return number_t(0.785398163397448309615660845819875721);
 		}
 
-		template<typename number_t = float>
+		template<typename number_t = MATHARZ_DEFAULT_FP>
 		MATHARZ_INLINE  number_t one_over_pi()
 		{
 			return number_t(0.318309886183790671537767526745028724);
 		}
 
-		template<typename number_t = float>
+		template<typename number_t = MATHARZ_DEFAULT_FP>
 		MATHARZ_INLINE  number_t one_over_two_pi()
 		{
 			return number_t(0.159154943091895335768883763372514362);
 		}
 
-		template<typename number_t = float>
+		template<typename number_t = MATHARZ_DEFAULT_FP>
 		MATHARZ_INLINE  number_t two_over_pi()
 		{
 			return number_t(0.636619772367581343075535053490057448);
 		}
 
-		template<typename number_t = float>
+		template<typename number_t = MATHARZ_DEFAULT_FP>
 		MATHARZ_INLINE  number_t four_over_pi()
 		{
 			return number_t(1.273239544735162686151070106980114898);
 		}
 
-		template<typename number_t = float>
+		template<typename number_t = MATHARZ_DEFAULT_FP>
 		MATHARZ_INLINE  number_t two_over_root_pi()
 		{
 			return number_t(1.12837916709551257389615890312154517);
 		}
 
-		template<typename number_t = float>
+		template<typename number_t = MATHARZ_DEFAULT_FP>
 		MATHARZ_INLINE  number_t one_over_root_two()
 		{
 			return number_t(0.707106781186547524400844362104849039);
 		}
 
-		template<typename number_t = float>
+		template<typename number_t = MATHARZ_DEFAULT_FP>
 		MATHARZ_INLINE  number_t root_half_pi()
 		{
 			return number_t(1.253314137315500251);
 		}
 
-		template<typename number_t = float>
+		template<typename number_t = MATHARZ_DEFAULT_FP>
 		MATHARZ_INLINE  number_t root_two_pi()
 		{
 			return number_t(2.506628274631000502);
 		}
 
-		template<typename number_t = float>
+		template<typename number_t = MATHARZ_DEFAULT_FP>
 		MATHARZ_INLINE  number_t root_ln_four()
 		{
 			return number_t(1.17741002251547469);
 		}
 
-		template<typename number_t = float>
+		template<typename number_t = MATHARZ_DEFAULT_FP>
 		MATHARZ_INLINE  number_t e()
 		{
 			return number_t(2.71828182845904523536);
 		}
 
-		template<typename number_t = float>
+		template<typename number_t = MATHARZ_DEFAULT_FP>
 		MATHARZ_INLINE  number_t euler()
 		{
 			return number_t(0.577215664901532860606);
 		}
 
-		template<typename number_t = float>
+		template<typename number_t = MATHARZ_DEFAULT_FP>
 		MATHARZ_INLINE  number_t root_two()
 		{
 			return number_t(1.41421356237309504880168872420969808);
 		}
 
-		template<typename number_t = float>
+		template<typename number_t = MATHARZ_DEFAULT_FP>
 		MATHARZ_INLINE  number_t root_three()
 		{
 			return number_t(1.73205080756887729352744634150587236);
 		}
 
-		template<typename number_t = float>
+		template<typename number_t = MATHARZ_DEFAULT_FP>
 		MATHARZ_INLINE  number_t root_five()
 		{
 			return number_t(2.23606797749978969640917366873127623);
 		}
 
-		template<typename number_t = float>
+		template<typename number_t = MATHARZ_DEFAULT_FP>
 		MATHARZ_INLINE  number_t ln_two()
 		{
 			return number_t(0.693147180559945309417232121458176568);
 		}
 
-		template<typename number_t = float>
+		template<typename number_t = MATHARZ_DEFAULT_FP>
 		MATHARZ_INLINE  number_t ln_ten()
 		{
 			return number_t(2.30258509299404568401799145468436421);
 		}
 
-		template<typename number_t = float>
+		template<typename number_t = MATHARZ_DEFAULT_FP>
 		MATHARZ_INLINE  number_t ln_ln_two()
 		{
 			return number_t(-0.3665129205816643);
 		}
 
-		template<typename number_t = float>
+		template<typename number_t = MATHARZ_DEFAULT_FP>
 		MATHARZ_INLINE  number_t third()
 		{
 			return number_t(0.3333333333333333333333333333333333333333);
 		}
 
-		template<typename number_t = float>
+		template<typename number_t = MATHARZ_DEFAULT_FP>
 		MATHARZ_INLINE  number_t two_thirds()
 		{
 			return number_t(0.666666666666666666666666666666666666667);
 		}
 
-		template<typename number_t = float>
+		template<typename number_t = MATHARZ_DEFAULT_FP>
 		MATHARZ_INLINE  number_t golden_ratio()
 		{
 			return number_t(1.61803398874989484820458683436563811);
@@ -375,6 +375,12 @@ namespace harz {
 		MATHARZ_STATIC_GLOBAL constexpr double MaxFloat64()
 		{
 			return std::numeric_limits<double>::max();
+		}
+
+		template<typename number_t>
+		MATHARZ_INLINE number_t infinity()
+		{
+			return std::numeric_limits<number_t>::infinity();
 		}
 
 		template<typename number_t, typename other_number_t>
@@ -514,9 +520,32 @@ namespace harz {
 			return std::cos(x);
 		}
 
+
+		MATHARZ_INLINE float cos(float x)
+		{
+			return std::cosf(x);
+		}
+
+
+		MATHARZ_INLINE double cos(double x)
+		{
+			return std::cos(x);
+		}
+
 		// Acos 
 		template<typename number_t = float>
 		MATHARZ_INLINE number_t acos(number_t x)
+		{
+			return std::acos(x);
+		}
+
+		MATHARZ_INLINE float acos(float x)
+		{
+			return std::acosf(x);
+		}
+
+
+		MATHARZ_INLINE double acos(double x)
 		{
 			return std::acos(x);
 		}
@@ -528,11 +557,99 @@ namespace harz {
 			return std::sin(x);
 		}
 
+		MATHARZ_INLINE float sin(float x)
+		{
+			return std::sinf(x);
+		}
+
+
+		MATHARZ_INLINE double sin(double x)
+		{
+			return std::sin(x);
+		}
+
 		// Asin
 		template<typename number_t = float>
 		MATHARZ_INLINE number_t asin(number_t x)
 		{
 			return std::asin(x);
+		}
+
+		MATHARZ_INLINE float asin(float x)
+		{
+			return std::asinf(x);
+		}
+
+
+		MATHARZ_INLINE double asin(double x)
+		{
+			return std::asin(x);
+		}
+
+		MATHARZ_INLINE float floor(float value)
+		{
+			return std::floor(value);
+		}
+
+		MATHARZ_INLINE double floor(double value)
+		{
+			return std::floor(value);
+		}
+
+		MATHARZ_INLINE long double floor(long double value)
+		{
+			return std::floor(value);
+		}
+
+		MATHARZ_INLINE float ceil(float value)
+		{
+			return std::ceil(value);
+		}
+
+		MATHARZ_INLINE double ceil(double value)
+		{
+			return std::ceil(value);
+		}
+
+		MATHARZ_INLINE long double ceil(long double value)
+		{
+			return std::ceil(value);
+		}
+
+		// Tan
+		template<typename number_t = float>
+		MATHARZ_INLINE number_t tan(number_t x)
+		{
+			return std::tan(x);
+		}
+
+		MATHARZ_INLINE float tan(float x)
+		{
+			return std::tanf(x);
+		}
+
+
+		MATHARZ_INLINE double tan(double x)
+		{
+			return std::tan(x);
+		}
+
+		// Atan2
+		template<typename number_t = float>
+		MATHARZ_INLINE number_t atan2(number_t y, number_t x)
+		{
+			return std::atan2(y, x);
+		}
+
+		MATHARZ_INLINE float atan2(float y, float x)
+		{
+			return std::atan2f(y, x);
+		}
+
+
+		MATHARZ_INLINE double atan2(double y, double x)
+		{
+			return std::atan2(y, x);
 		}
 
 		// Clamp value from x, y
@@ -571,6 +688,20 @@ namespace harz {
 		MATHARZ_INLINE bool less_or_equal(number_t a, other_number_t b, float safeGuard = MTHRZ_FLOAT_EPSILON)
 		{
 			return less(a, b) || equal(a, b);
+		};
+
+		template<typename number_t = float, typename other_number_t1 = float, typename other_number_t2 = float>
+		MATHARZ_INLINE bool less_or_more(number_t a, other_number_t1 lessThreshold, other_number_t1 moreThreshold)
+		{
+			return less(a, lessThreshold) || more(a, moreThreshold);
+		};
+
+		// Check if a is less/equal or more/equal then given less/more thresholds
+		template<typename number_t = float, typename other_number_t1 = float, typename other_number_t2 = float>
+		MATHARZ_INLINE bool less_or_more_equal(number_t a, other_number_t1 lessThreshold, other_number_t1 moreThreshold,
+			float safe_guard = MTHRZ_FLOAT_EPSILON)
+		{
+			return less_or_equal(a, lessThreshold) || more_or_equal(a, moreThreshold);
 		};
 
 		// Ray Tracing MATH
@@ -630,6 +761,95 @@ namespace harz {
 			MATHARZ_INLINE bool NearZero() const
 			{
 				return less(abs(*this), MTHRZ_FLOAT_EPSILON);
+			}
+
+			// Math functions
+			MATHARZ_INLINE number_t SquareLength() const
+			{
+				return { x * x + y * y };
+			}
+
+			MATHARZ_INLINE number_t SquareMagnitude() const
+			{
+				return SquareLength();
+			}
+
+			MATHARZ_INLINE number_t SumOfElements() const
+			{
+				return x + y;
+			}
+
+			MATHARZ_INLINE number_t Lenght() const
+			{
+				return static_cast<number_t>(sqrt(SquareLength()));
+			}
+
+			MATHARZ_INLINE number_t Magnitude() const
+			{
+				return Lenght();
+			}
+
+			MATHARZ_INLINE number_t DotProductFromSelf() const
+			{
+				return SquareLength();
+			}
+
+			// Calculate dotProduct
+			// @return dotProduct
+			MATHARZ_INLINE number_t DotProduct(const template_vec2<number_t> b) const
+			{
+				return { x * b.x + y * b.y };
+			}
+
+			// Check if this vector is perpendicular to vector b
+			MATHARZ_INLINE bool IsPerpendicularTo_INT(const template_vec2<number_t> b) const
+			{
+				return (DotProduct(b) == static_cast<number_t>(0));
+			}
+
+			// Check if this vector is parallel to vector b
+			MATHARZ_INLINE bool IsParallelTo_INT(const template_vec2<number_t> b) const
+			{
+				return (CrossProduct(b) == static_cast<number_t>(0));
+			}
+
+			/*	Check if this vector is perpendicular to vector b with safe guard
+				for avoiding bugs with floating point, (false)(0.0001 == 0) ; (true)(-safeGuard(.15) <0.0001 < safeGuard)
+			*/
+			MATHARZ_INLINE bool IsPerpendicularTo(const template_vec2<number_t> b, number_t safeGuard = 0.15) const
+			{
+				auto tempDP = DotProduct(b);
+				return less_or_equal(abs(tempDP), safeGuard);
+			}
+
+			/*	Check if this vector is parallel to vector b with safe guard
+				(for avoiding bugs with floating point, (false)(0.0001 == 0) ; (true)(-safeGuard(.15) <0.0001 < safeGuard))
+			*/
+			MATHARZ_INLINE bool IsParallelTo(const template_vec2<number_t> b, number_t safeGuard = 0.15) const
+			{
+				auto tempVector = CrossProduct(b);
+				return less_or_equal(abs(tempVector), safeGuard);
+			}
+
+			// Calcualte distance to vector b
+			MATHARZ_INLINE number_t DistanceTo(const template_vec2<number_t> b) const
+			{
+				template_vec2<number_t> DirectionVec = b - *this;
+				return DirectionVec.Lenght();
+			}
+
+			// Calcualte direction to vector b
+			MATHARZ_INLINE number_t Direction(const template_vec2<number_t> b) const
+			{
+				template_vec2<number_t> DirectionVec = b - *this;
+				return DirectionVec;
+			}
+
+			// Calcualte normalized direction to vector b
+			MATHARZ_INLINE number_t DirectionNormalized(const template_vec2<number_t> b) const
+			{
+				template_vec2<number_t> DirectionVec = b - *this;
+				return DirectionVec.Normalize();
 			}
 
 			// Scalar addition
@@ -788,6 +1008,42 @@ namespace harz {
 
 			MATHARZ_INLINE bool operator ==(const template_vec2<number_t> vec2) const {
 				return { equal(data[0] , vec2.data[0]) && equal(data[1] , vec2.data[1]) };
+			};
+
+			MATHARZ_INLINE bool operator >=(template_vec2<number_t> vec2) const {
+				return  more_or_equal(data[0], vec2.data[0]) && (more_or_equal(data[1], vec2.data[1]));
+			};
+
+			MATHARZ_INLINE bool operator <=(template_vec2<number_t> vec2) const {
+				return  less_or_equal(data[0], vec2.data[0]) && (less_or_equal(data[1], vec2.data[1]));
+			};
+
+			MATHARZ_INLINE bool operator >(template_vec2<number_t> vec2) const {
+				return  more(data[0], vec2.data[0]) && (more(data[1], vec2.data[1]));
+			};
+
+			MATHARZ_INLINE bool operator <(template_vec2<number_t> vec2) const {
+				return  less(data[0], vec2.data[0]) && (less(data[1], vec2.data[1]));
+			};
+
+			MATHARZ_INLINE bool operator ==(const number_t scalar) const {
+				return { equal(data[0] , scalar) && equal(data[1] , scalar) };
+			};
+
+			MATHARZ_INLINE bool operator >=(number_t scalar) const {
+				return  more_or_equal(data[0], scalar) && (more_or_equal(data[1], scalar));
+			};
+
+			MATHARZ_INLINE bool operator <=(number_t scalar) const {
+				return  less_or_equal(data[0], scalar) && (less_or_equal(data[1], scalar));
+			};
+
+			MATHARZ_INLINE bool operator >(number_t scalar) const {
+				return  more(data[0], scalar) && (more(data[1], scalar));
+			};
+
+			MATHARZ_INLINE bool operator <(number_t scalar) const {
+				return  less(data[0], scalar) && (less(data[1], scalar));
 			};
 
 			// Access operators
@@ -1120,7 +1376,21 @@ namespace harz {
 			MATHARZ_INLINE number_t DistanceTo(const template_vec3<number_t> b) const
 			{
 				template_vec3<number_t> DirectionVec = b - *this;
-				return DirectionVec.Lenght(); 
+				return DirectionVec.Lenght();
+			}
+
+			// Calcualte direction to vector b
+			MATHARZ_INLINE number_t Direction(const template_vec3<number_t> b) const
+			{
+				template_vec3<number_t> DirectionVec = b - *this;
+				return DirectionVec;
+			}
+
+			// Calcualte normalized direction to vector b
+			MATHARZ_INLINE number_t DirectionNormalized(const template_vec3<number_t> b) const
+			{
+				template_vec3<number_t> DirectionVec = b - *this;
+				return DirectionVec.Normalize();
 			}
 
 			// Check if this vector is perpendicular to vector b
@@ -1136,17 +1406,19 @@ namespace harz {
 			}
 
 			// Check if this vector is perpendicular to vector b with safe guard
-			MATHARZ_INLINE bool IsPerpendicularTo(const template_vec3<number_t> b, number_t safeGuard = MTHRZ_FLOAT_EPSILON) const
+			MATHARZ_INLINE bool IsPerpendicularTo(const template_vec3<number_t> b, number_t safeGuard = 0.15) const
 			{
 				auto tempDP = DotProduct(b);
-				return abs(tempDP) < safeGuard;
+				return less_or_equal(abs(tempDP), safeGuard);
 			}
 
-			// Check if this vector is parallel to vector b with safe guard
-			MATHARZ_INLINE bool IsParallelTo(const template_vec3<number_t> b, number_t safeGuard = MTHRZ_FLOAT_EPSILON) const
+			/*	Check if this vector is parallel to vector b with safe guard
+				(for avoiding bugs with floating point, (false)(0.0001 == 0) ; (true)(-safeGuard(.15) <0.0001 < safeGuard))
+			*/
+			MATHARZ_INLINE bool IsParallelTo(const template_vec3<number_t> b, number_t safeGuard = 0.15) const
 			{
 				auto tempVector = CrossProduct(b);
-				return (less(tempVector, static_cast<number_t>(safeGuard)) && more(tempVector, static_cast<number_t>(-safeGuard)));
+				return less_or_equal(abs(tempVector), safeGuard);
 			}
 
 			// Pow each element on xE value
@@ -1190,6 +1462,19 @@ namespace harz {
 			MATHARZ_INLINE template_vec3<number_t> Projection(const template_vec3<number_t> b) const
 			{
 				return b.ProjectionFrom(*this);
+			}
+
+			// Get angle(in radians) between this vector and vector b
+			MATHARZ_INLINE double Angle(const template_vec3<number_t>& b)
+			{
+				double DotPrdct = GetNormalized().DotProduct(b.GetNormalized());
+
+				if (more_or_equal(DotPrdct, 1.0))
+					return 0.0;
+				else if (less_or_equal(DotPrdct, -1.0))
+					return pi<double>();
+				else
+					return math::acos(DotPrdct);
 			}
 
 			// RAY TRACING MATH
@@ -1357,6 +1642,13 @@ namespace harz {
 		MATHARZ_INLINE template_vec3<number_t> operator-(number_t a, const template_vec3<number_t>& vec)
 		{
 			return vec.ScalarSubtract(a);
+		}
+
+		// Get angle(in radians) between two vectors
+		template<typename number_t>
+		MATHARZ_INLINE double Angle(const template_vec3<number_t>& a, const template_vec3<number_t>& b)
+		{
+			return a.Angle(b);
 		}
 
 		// Vector with 4 components
@@ -2362,7 +2654,7 @@ namespace harz {
 				return template_matrix3x3<number_t> {
 					a11 + b.a11, a12 + b.a12, a13 + b.a13,
 					a21 + b.a21, a22 + b.a22, a23 + b.a23,
-					a31 + b.a31, a32 + b.a, a33 + b.a33};
+					a31 + b.a31, a32 + b.a32, a33 + b.a33};
 			}
 
 			// bool operators
