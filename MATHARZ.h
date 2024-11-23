@@ -391,7 +391,7 @@ namespace harz {
 
 		MATHARZ_INLINE float pow(float value, float exp)
 		{
-			std::powf(value, exp);
+			return std::powf(value, exp);
 		}
 
 		MATHARZ_INLINE double pow(double value, double exp)
